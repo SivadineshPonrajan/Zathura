@@ -1,0 +1,23 @@
+./node_modules/*
+
+# Dependencies (install directory)
+node_modules/
+
+# Build output
+dist/
+
+# Vite cache
+.vite/
+
+# Logs
+*.log
+
+# Environment variables
+.env
+.env.local
+
+# Local configs
+*.local
+
+# Test coverage
+coverage/
