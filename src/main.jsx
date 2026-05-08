@@ -89,8 +89,8 @@ const getTileEmoji = tile => tile.emoji ?? TILE_TYPE_EMOJIS[tile.type];
 
 const getTileLabel = tile => {
   if (!tile) return '';
-  if (tile.name) return tile.name;
   if (tile.type === 'yesno') return 'Yes/No';
+  if (tile.name) return tile.name;
   if (tile.type === 'draw') return 'Draw';
   return tile.type;
 };
@@ -99,6 +99,12 @@ const getTileTheme = tile => {
   if (tile.name === 'START') return TILE_THEMES.start;
   if (tile.name === 'Defense') return TILE_THEMES.defense;
   return TILE_THEMES[tile.type] ?? TILE_THEMES.act;
+};
+
+const getStandingTileLabel = tile => {
+  if (!tile) return '';
+  if (tile.name === 'Defense') return 'Winner 🏆';
+  return tile.type === 'yesno' ? 'Yes/No' : tile.type === 'draw' ? 'Draw' : tile.type === 'act' ? 'Act' : tile.name ?? tile.type;
 };
 
 const createSetupTeams = count =>
@@ -366,7 +372,7 @@ const SetupScreen = ({ setupCount, setupTeams, onCountChange, onTeamChange, onSt
         >
           <div className="mb-6">
             <p className="text-sm font-semibold uppercase tracking-[0.2em] text-cyan-200/70">
-              Zathura setup
+              Zathura - A PhD Journey Board Game
             </p>
             <h1 className="mt-2 text-3xl font-bold">Set up the teams</h1>
             <p className="mt-2 text-sm text-slate-400">
@@ -794,7 +800,8 @@ const App = () => {
                     </div>
                   </div>
                   <div className="max-w-28 text-right text-sm font-semibold text-blue-300">
-                    {getTileLabel(PATH_TILES[team.position])}
+                    {/* {getTileLabel(PATH_TILES[team.position])} */}
+                    {getStandingTileLabel(PATH_TILES[team.position])}
                   </div>
                 </div>
               ))}
@@ -905,7 +912,9 @@ const App = () => {
                 {winners.map(team => (
                   <div
                     key={team.id}
-                    className="rounded-lg border border-amber-300/25 bg-amber-300/10 p-4 text-center shadow-lg shadow-black/20"
+                    className={`rounded-lg border border-amber-300/25 bg-amber-300/10 p-4 text-center shadow-lg shadow-black/20 ${
+                      winners.length === 1 ? 'sm:col-span-2 justify-self-center w-full max-w-[280px]' : ''
+                    }`}
                   >
                     <div className="text-5xl">{team.emoji}</div>
                     <div className="mt-2 break-words text-xl font-extrabold text-white">
