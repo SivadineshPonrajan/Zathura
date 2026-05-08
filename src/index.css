@@ -3,7 +3,38 @@
 @tailwind utilities;
 
 @layer base {
+  html {
+    background: #080914;
+  }
+
   body {
     @apply antialiased;
+    background: #080914;
+  }
+}
+
+.confetti-piece {
+  position: absolute;
+  top: -10vh;
+  border-radius: 2px;
+  opacity: 0;
+  animation: zathura-confetti-fall var(--duration) cubic-bezier(0.17, 0.67, 0.18, 1) forwards;
+  animation-delay: var(--delay);
+  transform: translate3d(0, -10vh, 0) rotate(var(--rotation));
+}
+
+@keyframes zathura-confetti-fall {
+  0% {
+    opacity: 0;
+    transform: translate3d(0, -10vh, 0) rotate(var(--rotation)) scale(0.85);
+  }
+
+  12% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+    transform: translate3d(var(--drift), 108vh, 0) rotate(calc(var(--rotation) + 720deg)) scale(1);
   }
 }

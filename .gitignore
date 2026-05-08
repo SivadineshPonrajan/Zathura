@@ -1,3 +1,6 @@
+.qwen
+game.md
+
 ./node_modules/*
 
 # Dependencies (install directory)
